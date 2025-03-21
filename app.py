@@ -1,7 +1,9 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
+import os
 
 app = Flask(__name__)
-
+CORS(app)  # Enable CORS for all routes
 # 🌍 Universal Dummy Data API
 data = {
     "eclothes": [
@@ -158,5 +160,6 @@ def get_data(category):
         return jsonify(data[category])
     return jsonify({"error": "Category not found"}), 404
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
